@@ -5,19 +5,10 @@ import {calculatorButtons} from '../globals/calculator-button-data'
 import Button from './Button'
 import '../styles/Keyboard.css'
 
-function Keyboard({ calculatorBrain }) {
-    function animateButtonDepress(target) {
-        target.classList.remove("pressed");
-    }
-
-    function animateButtonPress(target) {
-        target.classList.add("pressed");
-        setTimeout(animateButtonDepress, 10, target);
-    }
-
+function Keyboard({ calculatorBrain: brain_ }) {
     function performOp(op) {
-        let intRunningTotal = parseInt(calculatorBrain.runningTotal);
-        let intDisplayTotal = parseInt(calculatorBrain.displayTotal);
+        let intRunningTotal = parseInt(brain_.runningTotal);
+        let intDisplayTotal = parseInt(brain_.displayTotal);
         let opResult = 0;
         switch (op.trim().toUpperCase()) {
             case 'ADD':         opResult = intRunningTotal + intDisplayTotal; break;
@@ -29,78 +20,70 @@ function Keyboard({ calculatorBrain }) {
         return opResult;
     }
 
-    function handleClickClear(e) {
-        e.preventDefault();
-        animateButtonPress(e.target);
-
+    function handleClear(e) {
+        //e.preventDefault(); -- skipped, called by <Button /> event handler
         const clearType = e.target.value;
         switch (clearType) {
             // case 'All Clear':
             //     /* No break, intentional */
             default:
-                calculatorBrain.setDisplayTotal(0);
-                calculatorBrain.setNewNumberFlag(true);
+                brain_.setDisplayTotal(0);
+                brain_.setNewNumberFlag(true);
         }
     }
 
-    function handleClickOperator(e) {
-        e.preventDefault();
-        animateButtonPress(e.target);
-
+    function handleOperator(e) {
+        //e.preventDefault(); -- skipped, called by <Button /> event handler
         const opDepressed = e.target.value;
         let newTotal = 0;
-        if (calculatorBrain.activeOp != null) {
-            newTotal = performOp(calculatorBrain.activeOp);
-            calculatorBrain.setRunningTotal('' + newTotal);
-            calculatorBrain.setDisplayTotal('' + newTotal);
+        if (brain_.activeOp != null) {
+            newTotal = performOp(brain_.activeOp);
+            brain_.setRunningTotal('' + newTotal);
+            brain_.setDisplayTotal('' + newTotal);
         }
         else {
-            calculatorBrain.setRunningTotal(calculatorBrain.displayTotal);
+            brain_.setRunningTotal(brain_.displayTotal);
         }
-        calculatorBrain.setActiveOp(opDepressed);
-        calculatorBrain.setNewNumberFlag(true);
+        brain_.setActiveOp(opDepressed);
+        brain_.setNewNumberFlag(true);
     }
 
-    function handleClickEnter(e) {
-        e.preventDefault();
-        animateButtonPress(e.target);
-
+    function handleEnter(e) {
+        //e.preventDefault(); -- skipped, called by <Button /> event handler
         let newTotal = 0;
-        if (calculatorBrain.activeOp != null) {
-            newTotal = performOp(calculatorBrain.activeOp);
-            calculatorBrain.setDisplayTotal('' + newTotal);
-            calculatorBrain.setRunningTotal(0);
-            calculatorBrain.setActiveOp(null);
-            calculatorBrain.setNewNumberFlag(true);
+        if (brain_.activeOp != null) {
+            newTotal = performOp(brain_.activeOp);
+            brain_.setDisplayTotal('' + newTotal);
+            brain_.setRunningTotal(0);
+            brain_.setActiveOp(null);
+            brain_.setNewNumberFlag(true);
         }
     }
 
-    function handleClickNumber(e) {
-        e.preventDefault();
-        animateButtonPress(e.target);
-
+    function handleNumber(e) {
+        //e.preventDefault(); -- skipped, called by <Button /> event handler
         const digitDepressed = parseInt(e.target.value);
         let newDisplayTotal = '';
-        if (calculatorBrain.displayTotal == 0 || calculatorBrain.newNumberFlag) {
+        if (brain_.displayTotal == 0 || brain_.newNumberFlag) {
             newDisplayTotal +=  digitDepressed;
         }
         else {
-            newDisplayTotal +=  calculatorBrain.displayTotal + digitDepressed;
+            newDisplayTotal +=  brain_.displayTotal + digitDepressed;
         }
-        calculatorBrain.setDisplayTotal(newDisplayTotal);
-        calculatorBrain.setNewNumberFlag(false);
+        brain_.setDisplayTotal(newDisplayTotal);
+        brain_.setNewNumberFlag(false);
     }
 
     return (
         <section className="calc-keyboard">
             {calculatorButtons.map((calculatorButton) => {
-                let handleClickFn = handleClickNumber; // By default, assume a Number was pressed
+                let handleClickFn = handleNumber; // By default, assume a Number was pressed
                 
                 switch (calculatorButton.type) {
-                    case 'clear': handleClickFn = handleClickClear; break;
-                    case 'operator': handleClickFn = handleClickOperator; break;
-                    case 'enter': handleClickFn=handleClickEnter; break;
-                    // default: // Otherwise, digit [0, 9] already assigned
+                    case 'clear': handleClickFn = handleClear; break;
+                    case 'operator': handleClickFn = handleOperator; break;
+                    case 'enter': handleClickFn=handleEnter; break;
+                    // default: // Otherwise, digit [0, 9] handler already assigned
                 }
 
                 return (

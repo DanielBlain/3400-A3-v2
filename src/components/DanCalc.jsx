@@ -10,7 +10,7 @@ const DanCalc = () => {
     const [activeOp, setActiveOp] = useState(null);
     const [newNumberFlag, setNewNumberFlag] = useState(true);
 
-    let brain = {
+    let calculatorBrain = {
         displayTotal: displayTotal,
         setDisplayTotal: setDisplayTotal,
         runningTotal: runningTotal,
@@ -25,7 +25,7 @@ const DanCalc = () => {
         <section className='dancalc'>
             <h1>DanCalc</h1>
             <div className='display-window'>{displayTotal}</div>
-            <Keyboard calculatorBrain={brain} />
+            <Keyboard calculatorBrain={calculatorBrain} />
         </section>
     )
 }
