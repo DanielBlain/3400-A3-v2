@@ -27,7 +27,7 @@ const DanCalc = () => {
     return (
         <section className='dancalc'>
             <h1>DanCalc</h1>
-            <div className='display-window'>{displayTotal}</div>
+            <div className='display'>{displayTotal}</div>
             <Keyboard calculatorBrain={calculatorBrain} />
         </section>
     )

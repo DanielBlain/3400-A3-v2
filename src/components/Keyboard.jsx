@@ -84,6 +84,7 @@ function Keyboard({ calculatorBrain: brain }) {
 
     function handleEnter(e) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
+        //parameter e is not used; included to parallel other handler funcs 
         let newTotal = 0;
         if (brain.activeOp != null) {
             newTotal = performOp(brain.activeOp);
@@ -109,7 +110,7 @@ function Keyboard({ calculatorBrain: brain }) {
     }
 
     return (
-        <section className="calc-keyboard">
+        <section className="keyboard">
             {calculatorButtons.map((calculatorButton) => {
                 let buttonType = calculatorButton.type;
                 let handleClickFn = handleNumber; // By default, assume a Number was pressed
