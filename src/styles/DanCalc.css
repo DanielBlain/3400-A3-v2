@@ -1,0 +1,28 @@
+.dancalc {
+    margin: 20px auto;
+    max-width: 800px;
+
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+                0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    background-color: #fff;
+}
+
+.display-window {
+    margin: auto 60px;
+    border: 6px solid black;
+    border-radius: 6px;
+    border-left-color: #444;
+    border-top-color: #444;
+    border-right-color: #aaa;
+    border-bottom-color: #aaa;
+    padding: 0.5ex 3ex;
+
+    background-color: #000;
+    font-family: 'Special Elite', 'Courier New', Courier, monospace;
+    font-size: 3em;
+    color: red;
+    text-align: right;
+}

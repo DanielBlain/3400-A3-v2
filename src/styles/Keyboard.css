@@ -1,0 +1,30 @@
+.calc-keyboard {
+    margin: 100px 20px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+}
+
+.calc-button {
+    position: relative;
+    transform: all 1s ease-in-out;
+    left: -3px;
+    top: -3px;
+    border: 2px solid #444;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    font-size: 3em;
+    text-align: center;
+}
+
+.pressed {
+    left: 0px;
+    top: 0;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-color: #f0f0f0;
+    background-color: #444;
+    color: #f0f0f0;
+}
