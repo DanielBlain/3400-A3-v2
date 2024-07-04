@@ -5,10 +5,56 @@ import {calculatorButtons} from '../globals/calculator-button-data'
 import Button from './Button'
 import '../styles/Keyboard.css'
 
-function Keyboard({ calculatorBrain: brain_ }) {
+function Keyboard({ calculatorBrain: brain }) {
+    function handleMemory(e) {
+        //e.preventDefault(); -- skipped, called by <Button /> event handler
+        const memopType = e.target.value;
+        const intStashMemory = parseInt(brain.stashMemory);
+        const intDisplayTotal = parseInt(brain.displayTotal);
+        let opResult = intStashMemory;
+        switch (memopType.trim().toUpperCase()) {
+            case 'MEMORY SAVE':
+                brain.setStashMemory(brain.displayTotal);
+                brain.setDisplayTotal(0);
+                brain.setNewNumberFlag(true);
+                break;
+            case 'MEMORY CLEAR':
+                brain.setStashMemory(0);
+                break;
+            case 'MEMORY RECALL':
+                brain.setDisplayTotal(brain.stashMemory);
+                brain.setNewNumberFlag(false);
+                break;
+            case 'MEMORY ADDITION':
+                opResult += intDisplayTotal;
+                brain.setDisplayTotal(opResult);
+                brain.setNewNumberFlag(false);
+                break;
+            case 'MEMORY SUBTRACT':
+                opResult -= intDisplayTotal;
+                brain.setDisplayTotal(opResult);
+                brain.setNewNumberFlag(false);
+                break;
+            //default: // Unknown memory operation -- no error handling for now
+        }
+    }
+
+    function handleClear(e) {
+        //e.preventDefault(); -- skipped, called by <Button /> event handler
+        const clearType = e.target.value;
+        switch (clearType.trim().toUpperCase()) {
+            case 'ALL CLEAR':
+                brain.setStashMemory(0);
+                // No break, intentional
+            default: // case 'CLEAR':
+                brain.setDisplayTotal(0);
+                brain.setNewNumberFlag(true);
+        }
+    }
+
     function performOp(op) {
-        let intRunningTotal = parseInt(brain_.runningTotal);
-        let intDisplayTotal = parseInt(brain_.displayTotal);
+        let intRunningTotal = parseInt(brain.runningTotal);
+        let intDisplayTotal = parseInt(brain.displayTotal);
         let opResult = 0;
         switch (op.trim().toUpperCase()) {
             case 'ADD':         opResult = intRunningTotal + intDisplayTotal; break;
@@ -20,43 +66,31 @@ function Keyboard({ calculatorBrain: brain_ }) {
         return opResult;
     }
 
-    function handleClear(e) {
-        //e.preventDefault(); -- skipped, called by <Button /> event handler
-        const clearType = e.target.value;
-        switch (clearType) {
-            // case 'All Clear':
-            //     /* No break, intentional */
-            default:
-                brain_.setDisplayTotal(0);
-                brain_.setNewNumberFlag(true);
-        }
-    }
-
     function handleOperator(e) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
         const opDepressed = e.target.value;
         let newTotal = 0;
-        if (brain_.activeOp != null) {
-            newTotal = performOp(brain_.activeOp);
-            brain_.setRunningTotal('' + newTotal);
-            brain_.setDisplayTotal('' + newTotal);
+        if (brain.activeOp != null) {
+            newTotal = performOp(brain.activeOp);
+            brain.setRunningTotal('' + newTotal);
+            brain.setDisplayTotal('' + newTotal);
         }
         else {
-            brain_.setRunningTotal(brain_.displayTotal);
+            brain.setRunningTotal(brain.displayTotal);
         }
-        brain_.setActiveOp(opDepressed);
-        brain_.setNewNumberFlag(true);
+        brain.setActiveOp(opDepressed);
+        brain.setNewNumberFlag(true);
     }
 
     function handleEnter(e) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
         let newTotal = 0;
-        if (brain_.activeOp != null) {
-            newTotal = performOp(brain_.activeOp);
-            brain_.setDisplayTotal('' + newTotal);
-            brain_.setRunningTotal(0);
-            brain_.setActiveOp(null);
-            brain_.setNewNumberFlag(true);
+        if (brain.activeOp != null) {
+            newTotal = performOp(brain.activeOp);
+            brain.setDisplayTotal('' + newTotal);
+            brain.setRunningTotal(0);
+            brain.setActiveOp(null);
+            brain.setNewNumberFlag(true);
         }
     }
 
@@ -64,25 +98,27 @@ function Keyboard({ calculatorBrain: brain_ }) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
         const digitDepressed = parseInt(e.target.value);
         let newDisplayTotal = '';
-        if (brain_.displayTotal == 0 || brain_.newNumberFlag) {
+        if (brain.displayTotal == 0 || brain.newNumberFlag) {
             newDisplayTotal +=  digitDepressed;
         }
         else {
-            newDisplayTotal +=  brain_.displayTotal + digitDepressed;
+            newDisplayTotal +=  brain.displayTotal + digitDepressed;
         }
-        brain_.setDisplayTotal(newDisplayTotal);
-        brain_.setNewNumberFlag(false);
+        brain.setDisplayTotal(newDisplayTotal);
+        brain.setNewNumberFlag(false);
     }
 
     return (
         <section className="calc-keyboard">
             {calculatorButtons.map((calculatorButton) => {
+                let buttonType = calculatorButton.type;
                 let handleClickFn = handleNumber; // By default, assume a Number was pressed
                 
-                switch (calculatorButton.type) {
-                    case 'clear': handleClickFn = handleClear; break;
-                    case 'operator': handleClickFn = handleOperator; break;
-                    case 'enter': handleClickFn=handleEnter; break;
+                switch (buttonType.trim().toUpperCase()) {
+                    case 'MEMORY':      handleClickFn = handleMemory; break;
+                    case 'CLEAR':       handleClickFn = handleClear; break;
+                    case 'OPERATOR':    handleClickFn = handleOperator; break;
+                    case 'ENTER':       handleClickFn = handleEnter; break;
                     // default: // Otherwise, digit [0, 9] handler already assigned
                 }
 

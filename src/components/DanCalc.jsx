@@ -9,6 +9,7 @@ const DanCalc = () => {
     const [runningTotal, setRunningTotal] = useState(0);
     const [activeOp, setActiveOp] = useState(null);
     const [newNumberFlag, setNewNumberFlag] = useState(true);
+    const [stashMemory, setStashMemory] = useState(0);
 
     let calculatorBrain = {
         displayTotal: displayTotal,
@@ -18,7 +19,9 @@ const DanCalc = () => {
         activeOp: activeOp,
         setActiveOp: setActiveOp,
         newNumberFlag: newNumberFlag,
-        setNewNumberFlag: setNewNumberFlag
+        setNewNumberFlag: setNewNumberFlag,
+        stashMemory: stashMemory,
+        setStashMemory: setStashMemory
     }
     
     return (
