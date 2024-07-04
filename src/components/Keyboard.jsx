@@ -5,10 +5,10 @@ import {calculatorButtons} from '../globals/calculator-button-data'
 import Button from './Button'
 import '../styles/Keyboard.css'
 
-function Keyboard({ calculatorBrain: brain_ }) {
+function Keyboard({ calculatorBrain: brain }) {
     function performOp(op) {
-        let intRunningTotal = parseInt(brain_.runningTotal);
-        let intDisplayTotal = parseInt(brain_.displayTotal);
+        let intRunningTotal = parseInt(brain.runningTotal);
+        let intDisplayTotal = parseInt(brain.displayTotal);
         let opResult = 0;
         switch (op.trim().toUpperCase()) {
             case 'ADD':         opResult = intRunningTotal + intDisplayTotal; break;
@@ -27,8 +27,8 @@ function Keyboard({ calculatorBrain: brain_ }) {
             // case 'All Clear':
             //     /* No break, intentional */
             default:
-                brain_.setDisplayTotal(0);
-                brain_.setNewNumberFlag(true);
+                brain.setDisplayTotal(0);
+                brain.setNewNumberFlag(true);
         }
     }
 
@@ -36,27 +36,28 @@ function Keyboard({ calculatorBrain: brain_ }) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
         const opDepressed = e.target.value;
         let newTotal = 0;
-        if (brain_.activeOp != null) {
-            newTotal = performOp(brain_.activeOp);
-            brain_.setRunningTotal('' + newTotal);
-            brain_.setDisplayTotal('' + newTotal);
+        if (brain.activeOp != null) {
+            newTotal = performOp(brain.activeOp);
+            brain.setRunningTotal('' + newTotal);
+            brain.setDisplayTotal('' + newTotal);
         }
         else {
-            brain_.setRunningTotal(brain_.displayTotal);
+            brain.setRunningTotal(brain.displayTotal);
         }
-        brain_.setActiveOp(opDepressed);
-        brain_.setNewNumberFlag(true);
+        brain.setActiveOp(opDepressed);
+        brain.setNewNumberFlag(true);
     }
 
     function handleEnter(e) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
+        //parameter e is not used; included to parallel other handler funcs 
         let newTotal = 0;
-        if (brain_.activeOp != null) {
-            newTotal = performOp(brain_.activeOp);
-            brain_.setDisplayTotal('' + newTotal);
-            brain_.setRunningTotal(0);
-            brain_.setActiveOp(null);
-            brain_.setNewNumberFlag(true);
+        if (brain.activeOp != null) {
+            newTotal = performOp(brain.activeOp);
+            brain.setDisplayTotal('' + newTotal);
+            brain.setRunningTotal(0);
+            brain.setActiveOp(null);
+            brain.setNewNumberFlag(true);
         }
     }
 
@@ -64,18 +65,18 @@ function Keyboard({ calculatorBrain: brain_ }) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
         const digitDepressed = parseInt(e.target.value);
         let newDisplayTotal = '';
-        if (brain_.displayTotal == 0 || brain_.newNumberFlag) {
+        if (brain.displayTotal == 0 || brain.newNumberFlag) {
             newDisplayTotal +=  digitDepressed;
         }
         else {
-            newDisplayTotal +=  brain_.displayTotal + digitDepressed;
+            newDisplayTotal +=  brain.displayTotal + digitDepressed;
         }
-        brain_.setDisplayTotal(newDisplayTotal);
-        brain_.setNewNumberFlag(false);
+        brain.setDisplayTotal(newDisplayTotal);
+        brain.setNewNumberFlag(false);
     }
 
     return (
-        <section className="calc-keyboard">
+        <section className="keyboard">
             {calculatorButtons.map((calculatorButton) => {
                 let handleClickFn = handleNumber; // By default, assume a Number was pressed
                 
