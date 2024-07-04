@@ -6,6 +6,52 @@ import Button from './Button'
 import '../styles/Keyboard.css'
 
 function Keyboard({ calculatorBrain: brain }) {
+    function handleMemory(e) {
+        //e.preventDefault(); -- skipped, called by <Button /> event handler
+        const memopType = e.target.value;
+        const intStashMemory = parseInt(brain.stashMemory);
+        const intDisplayTotal = parseInt(brain.displayTotal);
+        let opResult = intStashMemory;
+        switch (memopType.trim().toUpperCase()) {
+            case 'MEMORY SAVE':
+                brain.setStashMemory(brain.displayTotal);
+                brain.setDisplayTotal(0);
+                brain.setNewNumberFlag(true);
+                break;
+            case 'MEMORY CLEAR':
+                brain.setStashMemory(0);
+                break;
+            case 'MEMORY RECALL':
+                brain.setDisplayTotal(brain.stashMemory);
+                brain.setNewNumberFlag(false);
+                break;
+            case 'MEMORY ADDITION':
+                opResult += intDisplayTotal;
+                brain.setDisplayTotal(opResult);
+                brain.setNewNumberFlag(false);
+                break;
+            case 'MEMORY SUBTRACT':
+                opResult -= intDisplayTotal;
+                brain.setDisplayTotal(opResult);
+                brain.setNewNumberFlag(false);
+                break;
+            //default: // Unknown memory operation -- no error handling for now
+        }
+    }
+
+    function handleClear(e) {
+        //e.preventDefault(); -- skipped, called by <Button /> event handler
+        const clearType = e.target.value;
+        switch (clearType.trim().toUpperCase()) {
+            case 'ALL CLEAR':
+                brain.setStashMemory(0);
+                // No break, intentional
+            default: // case 'CLEAR':
+                brain.setDisplayTotal(0);
+                brain.setNewNumberFlag(true);
+        }
+    }
+
     function performOp(op) {
         let intRunningTotal = parseInt(brain.runningTotal);
         let intDisplayTotal = parseInt(brain.displayTotal);
@@ -18,18 +64,6 @@ function Keyboard({ calculatorBrain: brain }) {
             //default: // Unknown operation -- no error handling for now
         }
         return opResult;
-    }
-
-    function handleClear(e) {
-        //e.preventDefault(); -- skipped, called by <Button /> event handler
-        const clearType = e.target.value;
-        switch (clearType) {
-            // case 'All Clear':
-            //     /* No break, intentional */
-            default:
-                brain.setDisplayTotal(0);
-                brain.setNewNumberFlag(true);
-        }
     }
 
     function handleOperator(e) {
@@ -78,12 +112,14 @@ function Keyboard({ calculatorBrain: brain }) {
     return (
         <section className="keyboard">
             {calculatorButtons.map((calculatorButton) => {
+                let buttonType = calculatorButton.type;
                 let handleClickFn = handleNumber; // By default, assume a Number was pressed
                 
-                switch (calculatorButton.type) {
-                    case 'clear': handleClickFn = handleClear; break;
-                    case 'operator': handleClickFn = handleOperator; break;
-                    case 'enter': handleClickFn=handleEnter; break;
+                switch (buttonType.trim().toUpperCase()) {
+                    case 'MEMORY':      handleClickFn = handleMemory; break;
+                    case 'CLEAR':       handleClickFn = handleClear; break;
+                    case 'OPERATOR':    handleClickFn = handleOperator; break;
+                    case 'ENTER':       handleClickFn = handleEnter; break;
                     // default: // Otherwise, digit [0, 9] handler already assigned
                 }
 
