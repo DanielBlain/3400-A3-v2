@@ -3,9 +3,38 @@
     border: 1px solid gray;
     padding: 10px;
     display: grid;
+    grid-template-areas:
+        ".  ms mr mc mp mm"
+        "ac n7 n8 n9 om od"
+        " c n4 n5 n6 oa os"
+        ".  n1 n2 n3 oa os"
+        ".  .  n0 .   e  e";
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
 }
+
+#button-ms          {grid-area: ms;}
+#button-mr          {grid-area: mr;}
+#button-mc          {grid-area: mc;}
+#button-m-plus      {grid-area: mp;}
+#button-m-minus     {grid-area: mm;}
+#button-ac          {grid-area: ac;}
+#button-c           {grid-area: c;}
+#button-zero        {grid-area: n0;}
+#button-one         {grid-area: n1;}
+#button-two         {grid-area: n2;}
+#button-three       {grid-area: n3;}
+#button-four        {grid-area: n4;}
+#button-five        {grid-area: n5;}
+#button-six         {grid-area: n6;}
+#button-seven       {grid-area: n7;}
+#button-eight       {grid-area: n8;}
+#button-nine        {grid-area: n9;}
+#button-multiply    {grid-area: om;}
+#button-divide      {grid-area: od;}
+#button-add         {grid-area: oa;}
+#button-subtract    {grid-area: os;}
+#button-equal       {grid-area: e;}
 
 .button {
     position: relative;
@@ -33,6 +62,14 @@
     color: black;
 }
 
+.type-memory {
+    background-color: #d3d300;
+}
+
+.type-memory.pressed {
+    background-color: #7e7e00;
+}
+
 .type-clear {
     background-color: #ff4242;
 }
@@ -55,41 +92,4 @@
 
 .type-enter.pressed {
     background-color: #080896;
-}
-
-#button-c {
-    grid-row: 2;
-}
-
-#button-multiply {
-    grid-row: 1;
-    grid-column: 5;
-}
-
-#button-divide {
-    grid-row: 1;
-    grid-column: 6;
-}
-
-#button-add {
-    grid-row: 2 / span 2;
-    grid-column: 5;
-}
-
-#button-subtract {
-    grid-row: 2 / span 2;
-    grid-column: 6;
-}
-
-#button-one {
-    grid-column: 2;
-}
-
-#button-zero {
-    grid-column: 3;
-}
-
-#button-equal {
-    grid-row: 4;
-    grid-column: 5 / span 2;
 }

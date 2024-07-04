@@ -8,7 +8,7 @@ const Button = ({buttonData, onClickHandler}) => {
 
     function animateButtonPress(target) {
         target.classList.add("pressed");
-        setTimeout(animateButtonDepress, 80, target);
+        setTimeout(animateButtonDepress, 120, target);
     }
 
     function handleClick(e) {
