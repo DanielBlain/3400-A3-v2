@@ -120,7 +120,7 @@ export const calculatorButtons = [
         value: 'Percent',
     },
     {
-        type: 'operator',
+        type: 'square-root',
         className: 'sqrt',
         text: '\u221a',
         value: 'Square Root',

@@ -47,6 +47,8 @@ function Keyboard({ calculatorBrain: brain }) {
                 // No break, intentional
             default: // case 'CLEAR':
                 brain.setDisplayTotal('0');
+                brain.setRunningTotal('0');
+                brain.setActiveOp(null);
                 brain.setIsNextNumber(true);
         }
     }
@@ -59,6 +61,7 @@ function Keyboard({ calculatorBrain: brain }) {
             case 'SUBTRACT':    opResult -= intDisplayTotal; break;
             case 'MULTIPLY':    opResult *= intDisplayTotal; break;
             case 'DIVIDE':      opResult /= intDisplayTotal; break;
+            case 'SQUARE ROOT': opResult = Math.sqrt(intDisplayTotal); break;
             //default: // Unknown operation -- no error handling for now
         }
         return '' + opResult;
@@ -136,6 +139,15 @@ function Keyboard({ calculatorBrain: brain }) {
         }
     }
 
+    function handleSquareRoot(e) {
+        //e.preventDefault(); -- skipped, called by <Button /> event handler
+        const opDepressed = e.target.value;
+        let newTotal = performOp(opDepressed);
+        brain.setDisplayTotal(newTotal);
+        brain.setActiveOp(opDepressed);
+        brain.setIsNextNumber(true);
+    }
+
     return (
         <section className="keyboard">
             {calculatorButtons.map((calculatorButton) => {
@@ -149,6 +161,7 @@ function Keyboard({ calculatorBrain: brain }) {
                     case 'ENTER':       handleClickFn = handleEnter; break;
                     case 'DECIMAL':     handleClickFn = handleDecimal; break;
                     case 'SIGN':        handleClickFn = handleSign; break;
+                    case 'SQUARE-ROOT': handleClickFn = handleSquareRoot; break;
                     // default: // Otherwise, digit [0, 9] handler already assigned
                 }
 
