@@ -102,6 +102,18 @@ export const calculatorButtons = [
         value: 0,
     },
     {
+        type: 'decimal',
+        className: 'decimal',
+        text: '.',
+        value: '.',
+    },
+    {
+        type: 'sign',
+        className: 'sign',
+        text: '+/-',
+        value: '+/-',
+    },
+    {
         type: 'operator',
         className: 'multiply',
         text: '\u00d7',

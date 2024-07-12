@@ -5,11 +5,13 @@ import Keyboard from './Keyboard'
 import '../styles/DanCalc.css'
 
 const DanCalc = () => {
-    const [displayTotal, setDisplayTotal] = useState(0);
-    const [runningTotal, setRunningTotal] = useState(0);
+    const [displayTotal, setDisplayTotal] = useState('0');
+    const [runningTotal, setRunningTotal] = useState('0');
     const [activeOp, setActiveOp] = useState(null);
     const [newNumberFlag, setNewNumberFlag] = useState(true);
-    const [stashMemory, setStashMemory] = useState(0);
+    const [stashMemory, setStashMemory] = useState('0');
+    // May require updating as the result of a calculation (e.g. <ENTER>)
+    const [isNegative, setIsNegative] = useState(false);
 
     let calculatorBrain = {
         displayTotal: displayTotal,
@@ -21,7 +23,9 @@ const DanCalc = () => {
         newNumberFlag: newNumberFlag,
         setNewNumberFlag: setNewNumberFlag,
         stashMemory: stashMemory,
-        setStashMemory: setStashMemory
+        setStashMemory: setStashMemory,
+        isNegative: isNegative,
+        setIsNegative: setIsNegative,
     }
     
     return (

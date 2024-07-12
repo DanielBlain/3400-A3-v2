@@ -8,7 +8,7 @@
         "ac n7 n8 n9 om od"
         " c n4 n5 n6 oa os"
         ".  n1 n2 n3 oa os"
-        ".  .  n0 .   e  e";
+        ".  d  n0 s   e  e";
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
 }
@@ -30,6 +30,8 @@
 #button-seven       {grid-area: n7;}
 #button-eight       {grid-area: n8;}
 #button-nine        {grid-area: n9;}
+#button-decimal     {grid-area: d;}
+#button-sign        {grid-area: s;}
 #button-multiply    {grid-area: om;}
 #button-divide      {grid-area: od;}
 #button-add         {grid-area: oa;}
@@ -40,14 +42,14 @@
     position: relative;
     transform: all 1s ease-in-out;
     left: -3px;
-    top: -3px;
+    top: -3px;    
     border: 2px solid #444;
     border-radius: 4px;
     border-right-width: 5px;
     border-bottom-width: 5px;
     background-color: #888;
     padding: 20px;
-    font-size: 3em;
+    font-size: 2.4em;
     text-align: center;
     color: white;
 }
