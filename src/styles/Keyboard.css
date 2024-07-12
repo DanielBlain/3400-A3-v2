@@ -82,11 +82,11 @@
     background-color: #b82828;
 }
 
-.type-operator, #button-sqrt {
+.type-operator {
     background-color: #ff9900;
 }
 
-.type-operator.pressed, #button-sqrt.pressed {
+.type-operator.pressed {
     background-color: #b36b00;
 }
 
