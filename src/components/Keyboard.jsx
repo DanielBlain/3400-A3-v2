@@ -46,7 +46,11 @@ function Keyboard({ calculatorBrain: brain }) {
         switch (clearType.trim().toUpperCase()) {
             case 'ALL CLEAR':
                 brain.setStashMemory('0');
-                // No break, intentional
+                brain.setDisplayTotal('0');
+                brain.setRunningTotal('0');
+                brain.setActiveOp(null);
+                brain.setIsNextNumber(true);
+                break;
             default: // case 'CLEAR':
                 brain.setDisplayTotal('0');
                 brain.setRunningTotal('0');
@@ -73,10 +77,14 @@ function Keyboard({ calculatorBrain: brain }) {
     function handleOperator(e) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
         const opDepressed = (e.target.value).trim().toUpperCase();
+        let newTotal;
         switch (opDepressed) {
             case 'PERCENT':
+                newTotal = performOp(opDepressed);
+                brain.setDisplayTotal(newTotal);
+                break;
             case 'SQUARE ROOT':
-                let newTotal = performOp(opDepressed);
+                newTotal = performOp(opDepressed);
                 brain.setDisplayTotal(newTotal);
                 break;
             default:
@@ -84,7 +92,7 @@ function Keyboard({ calculatorBrain: brain }) {
                     brain.setRunningTotal(brain.displayTotal);
                 }
                 else {
-                    let newTotal = performOp(brain.activeOp);
+                    newTotal = performOp(brain.activeOp);
                     brain.setRunningTotal(newTotal);
                     brain.setDisplayTotal(newTotal);
                 }
@@ -167,7 +175,7 @@ function Keyboard({ calculatorBrain: brain }) {
                 }
 
                 return (
-                    <Button buttonData={calculatorButton} onClickHandler={handleClickFn} />
+                    <Button key={calculatorButton.className} buttonData={calculatorButton} onClickHandler={handleClickFn} />
                 )
             })}
         </section>
