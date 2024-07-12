@@ -33,7 +33,7 @@
 #button-decimal     {grid-area: d;}
 #button-sign        {grid-area: s;}
 #button-percent     {grid-area: op;}
-#button-sqrt        {grid-area: or;}
+#button-square-root {grid-area: or;}
 #button-multiply    {grid-area: om;}
 #button-divide      {grid-area: od;}
 #button-add         {grid-area: oa;}

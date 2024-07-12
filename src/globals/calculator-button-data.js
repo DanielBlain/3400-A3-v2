@@ -121,7 +121,7 @@ export const calculatorButtons = [
     },
     {
         type: 'operator',
-        className: 'sqrt',
+        className: 'square-root',
         text: '\u221a',
         value: 'Square Root',
     },
