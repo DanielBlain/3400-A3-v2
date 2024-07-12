@@ -5,8 +5,8 @@
     display: grid;
     grid-template-areas:
         ".  ms mr mc mp mm"
-        "ac n7 n8 n9 om od"
-        " c n4 n5 n6 oa os"
+        "ac n7 n8 n9 op or"
+        " c n4 n5 n6 om od"
         ".  n1 n2 n3 oa os"
         ".  d  n0 s   e  e";
     grid-template-columns: repeat(6, 1fr);
@@ -32,6 +32,8 @@
 #button-nine        {grid-area: n9;}
 #button-decimal     {grid-area: d;}
 #button-sign        {grid-area: s;}
+#button-percent     {grid-area: op;}
+#button-sqrt        {grid-area: or;}
 #button-multiply    {grid-area: om;}
 #button-divide      {grid-area: od;}
 #button-add         {grid-area: oa;}

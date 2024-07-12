@@ -115,6 +115,18 @@ export const calculatorButtons = [
     },
     {
         type: 'operator',
+        className: 'percent',
+        text: '%',
+        value: 'Percent',
+    },
+    {
+        type: 'operator',
+        className: 'sqrt',
+        text: '\u221a',
+        value: 'Square Root',
+    },
+    {
+        type: 'operator',
         className: 'multiply',
         text: '\u00d7',
         value: 'Multiply',
