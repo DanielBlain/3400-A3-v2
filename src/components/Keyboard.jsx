@@ -26,13 +26,15 @@ function Keyboard({ calculatorBrain: brain }) {
                 break;
             case 'MEMORY ADDITION':
                 opResult += intStashMemory;
-                brain.setDisplayTotal('' + opResult);
-                brain.setIsNextNumber(false);
+                brain.setStashMemory('' + opResult);
+                brain.setDisplayTotal('0');
+                brain.setIsNextNumber(true);
                 break;
             case 'MEMORY SUBTRACT':
                 opResult -= intStashMemory;
-                brain.setDisplayTotal('' + opResult);
-                brain.setIsNextNumber(false);
+                brain.setStashMemory('' + opResult);
+                brain.setDisplayTotal('0');
+                brain.setIsNextNumber(true);
                 break;
             //default: // Unknown memory operation -- no error handling for now
         }
