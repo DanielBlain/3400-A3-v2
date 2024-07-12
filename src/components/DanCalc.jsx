@@ -8,7 +8,7 @@ const DanCalc = () => {
     const [displayTotal, setDisplayTotal] = useState('0');
     const [runningTotal, setRunningTotal] = useState('0');
     const [activeOp, setActiveOp] = useState(null);
-    const [newNumberFlag, setNewNumberFlag] = useState(true);
+    const [isNextNumber, setIsNextNumber] = useState(true);
     const [stashMemory, setStashMemory] = useState('0');
     // May require updating as the result of a calculation (e.g. <ENTER>)
     const [isNegative, setIsNegative] = useState(false);
@@ -20,8 +20,8 @@ const DanCalc = () => {
         setRunningTotal: setRunningTotal,
         activeOp: activeOp,
         setActiveOp: setActiveOp,
-        newNumberFlag: newNumberFlag,
-        setNewNumberFlag: setNewNumberFlag,
+        isNextNumber: isNextNumber,
+        setIsNextNumber: setIsNextNumber,
         stashMemory: stashMemory,
         setStashMemory: setStashMemory,
         isNegative: isNegative,

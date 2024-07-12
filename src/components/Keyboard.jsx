@@ -15,24 +15,24 @@ function Keyboard({ calculatorBrain: brain }) {
             case 'MEMORY SAVE':
                 brain.setStashMemory(brain.displayTotal);
                 brain.setDisplayTotal('0');
-                brain.setNewNumberFlag(true);
+                brain.setIsNextNumber(true);
                 break;
             case 'MEMORY CLEAR':
                 brain.setStashMemory('0');
                 break;
             case 'MEMORY RECALL':
                 brain.setDisplayTotal(brain.stashMemory);
-                brain.setNewNumberFlag(false);
+                brain.setIsNextNumber(false);
                 break;
             case 'MEMORY ADDITION':
                 opResult += intStashMemory;
                 brain.setDisplayTotal('' + opResult);
-                brain.setNewNumberFlag(false);
+                brain.setIsNextNumber(false);
                 break;
             case 'MEMORY SUBTRACT':
                 opResult -= intStashMemory;
                 brain.setDisplayTotal('' + opResult);
-                brain.setNewNumberFlag(false);
+                brain.setIsNextNumber(false);
                 break;
             //default: // Unknown memory operation -- no error handling for now
         }
@@ -47,7 +47,7 @@ function Keyboard({ calculatorBrain: brain }) {
                 // No break, intentional
             default: // case 'CLEAR':
                 brain.setDisplayTotal('0');
-                brain.setNewNumberFlag(true);
+                brain.setIsNextNumber(true);
         }
     }
 
@@ -76,18 +76,18 @@ function Keyboard({ calculatorBrain: brain }) {
             brain.setRunningTotal(brain.displayTotal);
         }
         brain.setActiveOp(opDepressed);
-        brain.setNewNumberFlag(true);
+        brain.setIsNextNumber(true);
     }
 
     function handleEnter(e) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
-        //parameter e is not used; included to parallel other handler funcs 
+        //parameter e is not used; included to parallel other handler funcs
         if (brain.activeOp != null) {
             let newTotal = performOp(brain.activeOp);
             brain.setDisplayTotal(newTotal);
             brain.setRunningTotal('0');
             brain.setActiveOp(null);
-            brain.setNewNumberFlag(true);
+            brain.setIsNextNumber(true);
         }
     }
 
@@ -97,36 +97,43 @@ function Keyboard({ calculatorBrain: brain }) {
         let newDisplayTotal = '';
 
         // Append the depressed digit iff not a new number and is already showing a number
-        if (!brain.newNumberFlag && brain.displayTotal != '0') {
+        if (!brain.isNextNumber && brain.displayTotal != '0') {
             newDisplayTotal +=  brain.displayTotal;
         }
 
         newDisplayTotal +=  digitDepressed;
         brain.setDisplayTotal(newDisplayTotal);
-        brain.setNewNumberFlag(false);
+        brain.setIsNextNumber(false);
     }
 
     function handleDecimal(e) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
-        //parameter e is not used; included to parallel other handler funcs 
-        const newTotal = parseFloat(brain.displayTotal);
-        if (newTotal == 0 || brain.newNumberFlag) {
+        //parameter e is not used; included to parallel other handler funcs
+        if (brain.isNextNumber || brain.displayTotal == '0') {
             brain.setDisplayTotal('0.');
-            brain.setNewNumberFlag(false);
         }
         else {
-            let floatTest = parseFloat(brain.displayTotal);
-            if (floatTest % parseInt(floatTest) == 0) {
-                brain.setDisplayTotal(brain.displayTotal + '.')
+            if (!brain.displayTotal.includes('.')) {
+                brain.setDisplayTotal(brain.displayTotal + '.');
+            }
+            else {
+                brain.setDisplayTotal(brain.displayTotal + '0');
             }
         }
+        brain.setIsNextNumber(false);
     }
 
     function handleSign(e) {
         //e.preventDefault(); -- skipped, called by <Button /> event handler
-        //parameter e is not used; included to parallel other handler funcs 
-        const newTotal = parseFloat(brain.displayTotal) * -1;
-        brain.setDisplayTotal('' + newTotal);
+        //parameter e is not used; included to parallel other handler funcs
+        if (brain.displayTotal == '0') return;
+        const firstCharOfDisplay = brain.displayTotal[0];
+        if (firstCharOfDisplay == '-') {
+            brain.setDisplayTotal(brain.displayTotal.substring(1));
+        }
+        else {
+            brain.setDisplayTotal('-' + brain.displayTotal);
+        }
     }
 
     return (
