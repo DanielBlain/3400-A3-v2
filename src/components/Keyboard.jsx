@@ -25,13 +25,13 @@ function Keyboard({ calculatorBrain: brain }) {
                 brain.setIsNextNumber(false);
                 break;
             case 'MEMORY ADDITION':
-                opResult += intStashMemory;
+                opResult = intStashMemory + opResult;
                 brain.setStashMemory('' + opResult);
                 brain.setDisplayTotal('0');
                 brain.setIsNextNumber(true);
                 break;
             case 'MEMORY SUBTRACT':
-                opResult -= intStashMemory;
+                opResult = intStashMemory - opResult;
                 brain.setStashMemory('' + opResult);
                 brain.setDisplayTotal('0');
                 brain.setIsNextNumber(true);

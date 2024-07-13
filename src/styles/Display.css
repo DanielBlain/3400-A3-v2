@@ -1,0 +1,17 @@
+.display {
+    margin: 10px 20px 50px 20px;
+    padding: 0 10px;
+    border: 6px solid black;
+    border-radius: 6px;
+    border-left-color: #444;
+    border-top-color: #444;
+    border-right-color: #aaa;
+    border-bottom-color: #aaa;
+
+    background-color: #000;
+    font-family: 'Special Elite', 'Courier New', Courier, monospace;
+    font-size: 3em;
+    color: red;
+    text-align: right;
+    overflow: hidden;
+}
