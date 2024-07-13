@@ -15,29 +15,26 @@ function Keyboard({ calculatorBrain: brain }) {
             case 'MEMORY SAVE':
                 brain.setStashMemory(brain.displayTotal);
                 brain.setDisplayTotal('0');
-                brain.setIsNextNumber(true);
                 break;
             case 'MEMORY CLEAR':
                 brain.setStashMemory('0');
                 break;
             case 'MEMORY RECALL':
                 brain.setDisplayTotal(brain.stashMemory);
-                brain.setIsNextNumber(false);
                 break;
             case 'MEMORY ADDITION':
                 opResult = intStashMemory + opResult;
                 brain.setStashMemory('' + opResult);
                 brain.setDisplayTotal('0');
-                brain.setIsNextNumber(true);
                 break;
             case 'MEMORY SUBTRACT':
                 opResult = intStashMemory - opResult;
                 brain.setStashMemory('' + opResult);
                 brain.setDisplayTotal('0');
-                brain.setIsNextNumber(true);
                 break;
             //default: // Unknown memory operation -- no error handling for now
         }
+        brain.setIsNextNumber(true);
     }
 
     function handleClear(e) {
