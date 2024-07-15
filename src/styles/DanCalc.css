@@ -4,7 +4,8 @@
 
     border: 2px solid #ccc;
     border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
-                0 1px 3px rgba(0, 0, 0, 0.08);
-    background-color: #fff;
+    box-shadow: 22px 22px 12px rgba(0, 0, 0, 0.5), -8px -8px 20px rgba(0, 0, 0, 0.3);
+
+    background: url('rainbackdrop.jpg') no-repeat center center fixed;
+    background-size: cover;
 }

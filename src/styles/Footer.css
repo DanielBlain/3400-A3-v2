@@ -1,7 +1,15 @@
 footer {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0 20px 5px 0;
-    font-size: 1em;
+    justify-content: space-between;
+    padding: 0 20px 5px 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.footer-left {
+    font-size: smaller;
+}
+
+.footer-right {
+    text-align: right;
 }

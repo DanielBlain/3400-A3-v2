@@ -14,4 +14,5 @@ header .title-wrapper {
     flex: 1;
     display: flex;
     justify-content: center;
+    color: #e2e5e7;
 }

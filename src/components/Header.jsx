@@ -1,7 +1,7 @@
 //import React from 'react'
 import PropTypes from 'prop-types'
 
-import LogoSrc from '/DanLogo-x1024.png'
+import LogoSrc from '/DanLogo-x1024-WhiteBorder.png'
 import '../styles/Header.css'
 
 const Header = ({title = "DanCalc"}, {logoSrc = LogoSrc}) => {

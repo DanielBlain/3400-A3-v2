@@ -1,5 +1,5 @@
 .display {
-    margin: 10px 20px 50px 20px;
+    margin: 30px 100px 60px 100px;
     padding: 0 10px;
     border: 6px solid black;
     border-radius: 6px;
@@ -9,9 +9,9 @@
     border-bottom-color: #aaa;
 
     background-color: #000;
-    font-family: 'Special Elite', 'Courier New', Courier, monospace;
+    font-family: 'Roboto Mono', 'Courier New', Courier, monospace;
     font-size: 3em;
-    color: red;
+    color: greenyellow;
     text-align: right;
     overflow: hidden;
 }

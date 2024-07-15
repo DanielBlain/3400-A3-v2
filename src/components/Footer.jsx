@@ -5,7 +5,14 @@ import { getYear } from '../utils/getDate.js'
 
 const Footer = ({ author:author = "Daniel Blain", copyright:copyright = getYear() }) => {
     return (
-        <footer>{copyright} &copy; {author}</footer>
+        <footer>
+            <div className='footer-left'>
+                https://freestocktextures.com/texture/drop-rain-water,662.html
+            </div>
+            <div className='footer-right'>
+                {copyright} &copy; {author}
+            </div>
+        </footer>
     )
 }
 
